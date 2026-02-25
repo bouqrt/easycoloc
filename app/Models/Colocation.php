@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Expense;
 
 class Colocation extends Model
 {
@@ -12,19 +14,20 @@ class Colocation extends Model
     protected $fillable = [
         'name',
         'owner_id',
-        'status',
+        'status', 
     ];
 
-    // Relation avec le créateur (Owner)
-    public function owner()
-    {
+    public function owner() {
         return $this->belongsTo(User::class, 'owner_id');
     }
 
-    // Relation avec les membres
-    public function members()
-    {
-        return $this->belongsToMany(User::class, 'colocation_user', 'colocation_id', 'user_id')
-                    ->withTimestamps();
+    public function members() {
+        return $this->belongsToMany(User::class, 'colocation_user')
+                    ->withTimestamps()
+                    ->withPivot('role'); // role: owner/member
+    }
+
+    public function expenses() {
+        return $this->hasMany(Expense::class);
     }
 }
