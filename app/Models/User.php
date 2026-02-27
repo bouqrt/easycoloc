@@ -46,4 +46,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function expenses(){
+        return $this->hasMany(Expense::class);
+    }
+
+    public function colocations(){
+        return $this->belongsToMany(Colocation::class)->withTimestamps();
+    }
 }
