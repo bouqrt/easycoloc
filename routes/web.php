@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ColocationController;
+use App\Http\Controllers\DashboardController;
+
 
 
 Route::get('/', function () {
@@ -24,9 +26,13 @@ Route::middleware('auth')->group(function () {
         ->middleware('auth')
         ->name('colocations.create');
 
-    Route::post('/colocations/store', [ColocationController::class, 'store'])
+    Route::post('/colocations', [ColocationController::class, 'store'])
         ->middleware('auth')
         ->name('colocations.store');
+
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware(['auth'])
+        ->name('dashboard');
 });
 
 require __DIR__.'/auth.php';

@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <form action="{{ route('colocation.store') }}" method="POST">
+    <form action="{{ route('colocation') }}" method="POST">
     @csrf
     <input type="text" name="name" placeholder="Nom de la colocation">
     <button type="submit">Créer Colocation</button>
